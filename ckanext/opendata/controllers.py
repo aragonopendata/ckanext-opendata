@@ -1,5 +1,6 @@
 import json
 import logging
+from pylons import config
 
 from ckan.plugins import toolkit
 
@@ -7,6 +8,8 @@ if toolkit.check_ckan_version(min_version='2.1'):
     BaseController = toolkit.BaseController
 else:
     from ckan.lib.base import BaseController
+
+
 
 DEFAULT_GA_AOD_CORE_URL = "http://opendata.aragon.es/GA_OD_Core/download?view_id="
 DEFAULT_GA_AOD_CORE_PATH='/var/www/wolfcms/GA_OD_Core'
@@ -30,17 +33,23 @@ def check_access_header():
 class OpendataController(BaseController):
 
     def opendata_showVista(self):
-        log.debug('Entrando en showVista ....')
+        log.debug('#ShowVista: Entrando en showVista ....')
         
         import os
         import sys
         ga_aod_core_url_prop = config.get(GA_AOD_CORE_URL,DEFAULT_GA_AOD_CORE_URL)
         ga_aod_core_path_prop = config.get(GA_AOD_CORE_PATH,DEFAULT_GA_AOD_CORE_PATH)
 
-        log.debug('Param  ga_aod_core_url_prop: ' + ga_aod_core_url_prop)
-        log.debug('Param  ga_aod_core_path_prop: ' + ga_aod_core_path_prop)
+        log.debug('#ShowVista: Param  ga_aod_core_url_prop: ' + ga_aod_core_url_prop)
+        log.debug('#ShowVista: Param  ga_aod_core_path_prop: ' + ga_aod_core_path_prop)
 
-        ''' sys.path.insert(0, ga_aod_core_path_prop)
+        '''import urllib2
+        data = urllib2.urlopen('http://samplecsvs.s3.amazonaws.com/Sacramentorealestatetransactions.csv')
+
+        log.debug('#ShowVista: Returning ...')
+        return data'''
+
+        sys.path.insert(0, ga_aod_core_path_prop)
         import ga_od_core 
         params = dict(request.params.items())
 	try:        
@@ -69,7 +78,7 @@ class OpendataController(BaseController):
         if (vistaFormato == 'XML'):
             response.headers['Content-Type'] = 'application/xml;charset=utf-8';
             response.headers['Content-Disposition'] = 'attachment; filename=' + str(vistaNombre) + '.xml';     
-        return data '''
+        return data
 
     
 

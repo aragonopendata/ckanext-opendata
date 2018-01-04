@@ -27,5 +27,6 @@ setup(
       
     opendata_custom=ckanext.opendata.plugins:OpendataPlugin
 
-    },'''
+    ''',
+   
 )

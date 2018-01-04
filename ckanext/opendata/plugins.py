@@ -1,18 +1,20 @@
 from pylons import config
 
 from ckan import plugins as p
+try:
+    from ckan.lib.plugins import DefaultTranslation
+except ImportError:
+    class DefaultTranslation():
+        pass
+
 
 from ckanext.opendata.logic import (opendata_auth,)
 
 
-DEFAULT_URL_ENDPOINT = '/'
+
+DEFAULT_URL_ENDPOINT = '/custom/dataset'
 CUSTOM_ENDPOINT_CONFIG = 'ckanext.opendata.catalog_endpoint'
 ENABLE_CONTENT_NEGOTIATION_CONFIG = 'ckanext.opendata.enable_content_negotiation'
-
-
-
-
-
 
 class OpendataPlugin(p.SingletonPlugin, DefaultTranslation):
 
@@ -44,9 +46,7 @@ class OpendataPlugin(p.SingletonPlugin, DefaultTranslation):
 
         controller = 'ckanext.opendata.controllers:OpendataController'
         
-        _map.connect('dataset/showVista',
-                     config.get('ckanext.opendata.catalog_endpoint',
-                                DEFAULT_URL_ENDPOINT),
+        _map.connect('showVista',DEFAULT_URL_ENDPOINT + '/showVista',
                      controller=controller, action='opendata_showVista',
                      requirements={})
 
@@ -55,7 +55,7 @@ class OpendataPlugin(p.SingletonPlugin, DefaultTranslation):
     # IActions
     def get_actions(self):
         return {
-            'opendata_showVista': opendata_showVista,
+            
         }
 
     # IAuthFunctions
