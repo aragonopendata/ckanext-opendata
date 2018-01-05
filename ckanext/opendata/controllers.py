@@ -33,15 +33,15 @@ def check_access_header():
 class OpendataController(BaseController):
 
     def opendata_showVista(self):
-        log.debug('#ShowVista: Entrando en showVista ....')
+        log.error('#ShowVista: Entrando en showVista ....')
         
         import os
         import sys
         ga_aod_core_url_prop = config.get(GA_AOD_CORE_URL,DEFAULT_GA_AOD_CORE_URL)
         ga_aod_core_path_prop = config.get(GA_AOD_CORE_PATH,DEFAULT_GA_AOD_CORE_PATH)
 
-        log.debug('#ShowVista: Param  ga_aod_core_url_prop: ' + ga_aod_core_url_prop)
-        log.debug('#ShowVista: Param  ga_aod_core_path_prop: ' + ga_aod_core_path_prop)
+        log.error('#ShowVista: Param  ga_aod_core_url_prop: ' + ga_aod_core_url_prop)
+        log.error('#ShowVista: Param  ga_aod_core_path_prop: ' + ga_aod_core_path_prop)
 
         '''import urllib2
         data = urllib2.urlopen('http://samplecsvs.s3.amazonaws.com/Sacramentorealestatetransactions.csv')
@@ -57,10 +57,15 @@ class OpendataController(BaseController):
                 vistaResourceId = params.get('id')
                 vistaNombre = params.get('name').encode('utf8')
                 vistaFormato = params.get('formato')
-	except Exception,e:        
+        log.error('#ShowVista: vistaResourceId:' + vistaResourceId)
+        log.error('#ShowVista: vistaNombre:' + vistaNombre)
+        log.error('#ShowVista: vistaFormato: ' + vistaFormato)
+	except Exception,e:      
+        log.error('#ShowVista: Parametros incorrectos') 
 	    return 'You missed some param'
 	try:        
 	    vista_id = ga_od_core.get_view_id(vistaResourceId)
+        log.error('#ShowVista: VistaId:' + vista_id) 
         except Exception,e:        
 	    return 'Something went wrong. please try again or contact your administrator'       
         #data = ga_od_core.download(vista_id,None,None,vistaFormato,None,None)

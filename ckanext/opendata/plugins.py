@@ -12,7 +12,7 @@ from ckanext.opendata.logic import (opendata_auth,)
 
 
 
-DEFAULT_URL_ENDPOINT = '/custom/dataset'
+DEFAULT_URL_ENDPOINT = '/catalago/dataset'
 CUSTOM_ENDPOINT_CONFIG = 'ckanext.opendata.catalog_endpoint'
 ENABLE_CONTENT_NEGOTIATION_CONFIG = 'ckanext.opendata.enable_content_negotiation'
 
