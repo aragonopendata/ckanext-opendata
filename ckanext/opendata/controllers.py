@@ -75,7 +75,6 @@ class OpendataController(BaseController):
             response.headers = [('Content-Disposition', 'attachment; filename=\"' + str(vistaNombre) +"__ad" +  ".json" + '\"'),('Content-Type', 'application/json;charset=utf-8')]
         if (vistaFormato == 'CSV'):
             #response.headers['Content-Type'] = 'text/csv;charset=utf-8'
-
             response.headers = [('Content-Disposition', 'attachment; filename=\"' + str(vistaNombre)+ "__ad"+ ".csv" + '\"'),('Content-Type', 'text/csv;charset=utf-8')]
         if (vistaFormato == 'XML'):
             response.headers['Content-Type'] = 'application/xml;charset=utf-8';
