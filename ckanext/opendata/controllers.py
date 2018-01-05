@@ -60,30 +60,25 @@ class OpendataController(BaseController):
                 log.error('#ShowVista: vistaResourceId:' + vistaResourceId)
                 log.error('#ShowVista: vistaNombre:' + vistaNombre)
                 log.error('#ShowVista: vistaFormato: ' + vistaFormato)
-	except Exception,e:      
-        log.error('#ShowVista: Parametros incorrectos') 
-	    return 'You missed some param'
-	try:        
-	    vista_id = ga_od_core.get_view_id(vistaResourceId)
-        log.error('#ShowVista: VistaId:' + vista_id) 
+	except Exception,e:
+		log.error('#ShowVista: Parametros incorrectos')
+		return 'You missed some param'
+	try:
+		vista_id = ga_od_core.get_view_id(vistaResourceId)
+		log.error('#ShowVista: VistaId:' + vista_id) 
    
-        import urllib2
-        data = urllib2.urlopen(ga_aod_core_url_prop+str(vista_id)+"&select_sql=*&filter_sql=&formato="+str(vistaFormato)).read()
+		import urllib2
+		data = urllib2.urlopen(ga_aod_core_url_prop+str(vista_id)+"&select_sql=*&filter_sql=&formato="+str(vistaFormato)).read()
 
-        if (vistaFormato == 'JSON'):
-            #response.headers['Content-Type'] = 'application/json;charset=utf-8'
-            response.headers = [('Content-Disposition', 'attachment; filename=\"' + str(vistaNombre) +"__ad" +  ".json" + '\"'),('Content-Type', 'application/json;charset=utf-8')]
-        if (vistaFormato == 'CSV'):
-            #response.headers['Content-Type'] = 'text/csv;charset=utf-8'
-            response.headers = [('Content-Disposition', 'attachment; filename=\"' + str(vistaNombre)+ "__ad"+ ".csv" + '\"'),('Content-Type', 'text/csv;charset=utf-8')]
-        if (vistaFormato == 'XML'):
-            response.headers['Content-Type'] = 'application/xml;charset=utf-8';
-            response.headers['Content-Disposition'] = 'attachment; filename=' + str(vistaNombre) + '.xml';     
-        return data
-    except Exception,e:        
-	    return 'Something went wrong. please try again or contact your administrator'       
-        #data = ga_od_core.download(vista_id,None,None,vistaFormato,None,None)
-
-    
-
-
+		if (vistaFormato == 'JSON'):
+		    #response.headers['Content-Type'] = 'application/json;charset=utf-8'
+		    response.headers = [('Content-Disposition', 'attachment; filename=\"' + str(vistaNombre) +"__ad" +  ".json" + '\"'),('Content-Type', 'application/json;charset=utf-8')]
+		if (vistaFormato == 'CSV'):
+		    #response.headers['Content-Type'] = 'text/csv;charset=utf-8'
+		    response.headers = [('Content-Disposition', 'attachment; filename=\"' + str(vistaNombre)+ "__ad"+ ".csv" + '\"'),('Content-Type', 'text/csv;charset=utf-8')]
+		if (vistaFormato == 'XML'):
+		    response.headers['Content-Type'] = 'application/xml;charset=utf-8';
+		    response.headers['Content-Disposition'] = 'attachment; filename=' + str(vistaNombre) + '.xml';     
+		return data
+	except Exception,e:
+		return 'Something went wrong. please try again or contact your administrator'
