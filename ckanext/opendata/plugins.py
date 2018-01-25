@@ -50,6 +50,19 @@ class OpendataPlugin(p.SingletonPlugin, DefaultTranslation):
                      controller=controller, action='opendata_showVista',
                      requirements={})
 
+        #URLS mapeadas para compatibilidad con la anterior version
+
+               
+        _map.connect('renderView','/catalogo/render/resource/{resource_id}',
+                     controller=controller, action='render_resource',
+                     requirements={})
+        _map.connect('renderData','/catalogo/data/{dataset}/{formato}',
+                     controller=controller, action='data_resource',
+                     requirements={})
+        _map.connect('renderDataVersion','/catalogo/data/{dataset}/{formato}/{version}',
+                     controller=controller, action='data_resource',
+                     requirements={})       
+
         return _map
 
     # IActions
@@ -62,5 +75,7 @@ class OpendataPlugin(p.SingletonPlugin, DefaultTranslation):
     def get_auth_functions(self):
         return {
             'opendata_showVista': opendata_auth,
+            'render_resource':opendata_auth,
+            'data_resource':opendata_auth,
         }
 
