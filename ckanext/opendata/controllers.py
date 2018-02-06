@@ -111,8 +111,7 @@ class OpendataController(BaseController):
 		    response.headers['Content-Disposition'] = 'attachment; filename=' + str(vistaNombre) + '.xml';     
 		return data
 	except Exception,e:
-            log.error('#ShowVista: Exception:' + str(e) )
-		    return 'Se ha producido un error. Intentelo mas tarde.'
+		return e
 
 
     def data_resource(self, dataset, formato, version=None):
