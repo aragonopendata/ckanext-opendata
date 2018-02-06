@@ -112,7 +112,7 @@ class OpendataController(BaseController):
 		return data
 	except Exception,e:
             log.error('#ShowVista: Exception:' + str(e) )
-		return 'Se ha producido un error. Intentelo mas tarde.'
+		    return 'Se ha producido un error. Intentelo mas tarde.'
 
 
     def data_resource(self, dataset, formato, version=None):
