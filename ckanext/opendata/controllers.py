@@ -97,20 +97,20 @@ class OpendataController(BaseController):
 		vista_id = ga_od_core.get_view_id(vistaResourceId)
 		log.error('#ShowVista: VistaId:' + vista_id) 
    
-        import urllib2
-        log.error('debug1')
+		import urllib2
+		log.error('debug1')
 		data = urllib2.urlopen(ga_aod_core_url_prop+str(vista_id)+"&select_sql=*&filter_sql=&formato="+str(vistaFormato)).read()
-        log.error('debug2')
+		log.error('debug2')
 		if (vistaFormato == 'JSON'):
-            log.error('debug3')
+		    log.error('debug3')
 		    #response.headers['Content-Type'] = 'application/json;charset=utf-8'
 		    response.headers = [('Content-Disposition', 'attachment; filename=\"' + str(vistaNombre) +"__ad" +  ".json" + '\"'),('Content-Type', 'application/json;charset=utf-8')]
 		if (vistaFormato == 'CSV'):
-            log.error('debug4')
+		    log.error('debug4')
 		    #response.headers['Content-Type'] = 'text/csv;charset=utf-8'
 		    response.headers = [('Content-Disposition', 'attachment; filename=\"' + str(vistaNombre)+ "__ad"+ ".csv" + '\"'),('Content-Type', 'text/csv;charset=utf-8')]
 		if (vistaFormato == 'XML'):
-            log.error('debug5')
+		    log.error('debug5')
 		    response.headers['Content-Type'] = 'application/xml;charset=utf-8';
 		    response.headers['Content-Disposition'] = 'attachment; filename=' + str(vistaNombre) + '.xml';
 
