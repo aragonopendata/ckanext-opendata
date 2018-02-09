@@ -112,7 +112,7 @@ class OpendataController(BaseController):
 		    response.headers['Content-Disposition'] = 'attachment; filename=' + str(vistaNombre) + '.xml';
 		if data is None:
 		    return None
-		else
+		else:
 		    return [data.encode('UTF-8')]
 	except Exception,e:
 		return e
