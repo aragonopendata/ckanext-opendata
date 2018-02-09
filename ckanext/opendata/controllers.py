@@ -114,7 +114,7 @@ class OpendataController(BaseController):
 		    response.headers['Content-Type'] = 'application/xml;charset=utf-8';
 		    response.headers['Content-Disposition'] = 'attachment; filename=' + str(vistaNombre) + '.xml';
 
-        log.error('debug6')     
+		log.error('debug6')     
 		return data
 	except Exception,e:
 		return e
