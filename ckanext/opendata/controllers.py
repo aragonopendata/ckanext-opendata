@@ -110,10 +110,11 @@ class OpendataController(BaseController):
 		if (vistaFormato == 'XML'):
 		    response.headers['Content-Type'] = 'application/xml;charset=utf-8';
 		    response.headers['Content-Disposition'] = 'attachment; filename=' + str(vistaNombre) + '.xml';
+		    response.headers['Content-Length'] = str(len(data));
 		if data is None:
 		    return None
 		else:
-		    return [repr(data)]
+		    return [data]
 	except Exception,e:
 		return e
 
