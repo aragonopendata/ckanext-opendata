@@ -113,7 +113,7 @@ class OpendataController(BaseController):
 		if data is None:
 		    return None
 		else:
-		    return [data.encode('UTF-8')]
+		    return [repr(data)]
 	except Exception,e:
 		return e
 
