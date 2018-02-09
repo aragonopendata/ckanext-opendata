@@ -95,7 +95,7 @@ class OpendataController(BaseController):
 		return 'You missed some param'
 	try:
 		vista_id = ga_od_core.get_view_id(vistaResourceId)
-		log.error('#ShowVista: VistaId:' + str(vista_id) 
+		log.error('#ShowVista: VistaId:' + str(vista_id))
    
 		import urllib2
 		data = urllib2.urlopen(ga_aod_core_url_prop+str(vista_id)+"&select_sql=*&filter_sql=&formato="+str(vistaFormato)).read()
