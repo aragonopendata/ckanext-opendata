@@ -97,7 +97,7 @@ class OpendataController(BaseController):
 		vista_id = ga_od_core.get_view_id(vistaResourceId)
 		log.error('#ShowVista: VistaId:' + vista_id) 
    
-		import urllib2
+        import urllib2
         log.error('debug1')
 		data = urllib2.urlopen(ga_aod_core_url_prop+str(vista_id)+"&select_sql=*&filter_sql=&formato="+str(vistaFormato)).read()
         log.error('debug2')
