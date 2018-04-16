@@ -28,6 +28,14 @@ from StringIO import StringIO
 
 from ckan.common import OrderedDict, request, response
 
+BLACKLIST = ("id", "package_id", "vocabulary_id", "revision_id",
+             "resource_group_id", "relationships_as_object",
+             "revision_timestamp", "author_email", "version", "type",
+             "cache_last_updated", "webstore_last_updated", "hash",
+             "tracking_summary", "total", "recent", "mimetype_inner",
+             "cache_url", "webstore_url", "position", "capacity", "image_url",
+             "approval_status", "isopen", "relationships_as_subject")
+
 NotFound = logic.NotFound
 NotAuthorized = logic.NotAuthorized
 ValidationError = logic.ValidationError
@@ -110,12 +118,8 @@ class OpendataController(BaseController):
 		if (vistaFormato == 'XML'):
 		    response.headers['Content-Type'] = 'application/xml;charset=utf-8';
 		    response.headers['Content-Disposition'] = 'attachment; filename=' + str(vistaNombre) + '.xml';
-		    response.headers['Content-Length'] = str(len(data));
-		enc, esc = sys.getfilesystemencoding(), 'surrogateescape'
-		if data is None:
-		    return None
-		else:
-		    return data.encode(enc,esc).decode('iso-8859-1')
+    
+		return data
 	except Exception,e:
 		return e
 
@@ -235,6 +239,26 @@ class OpendataController(BaseController):
 
         remove(xls_file)
         log.debug('#RenderResource: Devolviendo valor')
+        #return render('package/resource_render.html', loader_class=NewTextTemplate)
+        return content_to_render
+
+    def opendata_showIndex(self, formato):
+        log.error('#ShowIndex: Entrando en showIndex ....')
+        log.error('Formato: %s' % formato)
+        content_to_render = None
+        """ Create a {format} file with all datasets info """
+        context = {}
+        data_dict = {
+            'rows': 1000
+        }
+        data = get_action('package_search')(context, data_dict)     
+        print len(data['results'])
+        if formato == 'json':
+            content_to_render = self._create_json_index(data)
+        elif formato == 'xml':
+            content_to_render = self._create_xml_index(data)
+        elif formato == 'csv':
+            content_to_render = self._create_csv_index(data)
         #return render('package/resource_render.html', loader_class=NewTextTemplate)
         return content_to_render
 

@@ -45,6 +45,11 @@ class OpendataPlugin(p.SingletonPlugin, DefaultTranslation):
     def before_map(self, _map):
 
         controller = 'ckanext.opendata.controllers:OpendataController'
+
+        _map.connect('showIndex',DEFAULT_URL_ENDPOINT + '/index/catalogo_opendata.{formato}',
+                     controller=controller, action='opendata_showIndex',
+                     requirements={})
+
         
         _map.connect('showVista',DEFAULT_URL_ENDPOINT + '/showVista',
                      controller=controller, action='opendata_showVista',
@@ -61,8 +66,9 @@ class OpendataPlugin(p.SingletonPlugin, DefaultTranslation):
                      requirements={})
         _map.connect('renderDataVersion','/catalogo/data/{dataset}/{formato}/{version}',
                      controller=controller, action='data_resource',
-                     requirements={})       
+                     requirements={})     
 
+        
         return _map
 
     # IActions
@@ -77,5 +83,6 @@ class OpendataPlugin(p.SingletonPlugin, DefaultTranslation):
             'opendata_showVista': opendata_auth,
             'render_resource':opendata_auth,
             'data_resource':opendata_auth,
+            'opendata_showIndex': opendata_auth,
         }
 
